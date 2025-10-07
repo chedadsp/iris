@@ -1,0 +1,1331 @@
+{
+  "configuration" : { },
+  "description" : "Comprehensive architecture documentation for LIDAR point cloud analysis and visualization application",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedAgent" : "structurizr-ui",
+  "lastModifiedDate" : "2025-09-18T12:19:29Z",
+  "model" : {
+    "people" : [ {
+      "description" : "Research scientist or engineer analyzing vehicle LIDAR data",
+      "id" : "1",
+      "location" : "Unspecified",
+      "name" : "LIDAR Analyst",
+      "properties" : {
+        "structurizr.dsl.identifier" : "user"
+      },
+      "relationships" : [ {
+        "description" : "Launches application",
+        "destinationId" : "4",
+        "id" : "17",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Launches application",
+        "destinationId" : "3",
+        "id" : "18",
+        "linkedRelationshipId" : "17",
+        "sourceId" : "1"
+      }, {
+        "description" : "Interacts with GUI",
+        "destinationId" : "5",
+        "id" : "19",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Manipulates cube widget",
+        "destinationId" : "10",
+        "id" : "20",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Positions human models",
+        "destinationId" : "11",
+        "id" : "21",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person,User"
+    } ],
+    "softwareSystems" : [ {
+      "description" : "Local file storage for LIDAR data and analysis results",
+      "documentation" : { },
+      "id" : "2",
+      "location" : "Unspecified",
+      "name" : "File System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "filesystem"
+      },
+      "tags" : "Element,Software System,External"
+    }, {
+      "containers" : [ {
+        "description" : "Entry point application providing multi-mode access to all system features",
+        "documentation" : { },
+        "id" : "4",
+        "name" : "Universal Launcher",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.launcherapp"
+        },
+        "relationships" : [ {
+          "description" : "Launches GUI mode",
+          "destinationId" : "5",
+          "id" : "22",
+          "sourceId" : "4",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Launches headless analysis",
+          "destinationId" : "7",
+          "id" : "23",
+          "sourceId" : "4",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Launches cube editor",
+          "destinationId" : "10",
+          "id" : "24",
+          "sourceId" : "4",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Launches human positioner",
+          "destinationId" : "11",
+          "id" : "25",
+          "sourceId" : "4",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,Application",
+        "technology" : "Python"
+      }, {
+        "description" : "Comprehensive Tkinter-based graphical interface for interactive LIDAR analysis",
+        "documentation" : { },
+        "id" : "5",
+        "name" : "GUI Application",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.guiapp"
+        },
+        "relationships" : [ {
+          "description" : "Loads point cloud files",
+          "destinationId" : "8",
+          "id" : "27",
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Executes analysis pipeline",
+          "destinationId" : "7",
+          "id" : "28",
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Creates 3D visualizations",
+          "destinationId" : "9",
+          "id" : "29",
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Performs cube selection",
+          "destinationId" : "10",
+          "id" : "30",
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Positions human models",
+          "destinationId" : "11",
+          "id" : "31",
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Saves/loads results",
+          "destinationId" : "16",
+          "id" : "32",
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Logs errors and status",
+          "destinationId" : "14",
+          "id" : "54",
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,GUI",
+        "technology" : "Python/Tkinter"
+      }, {
+        "description" : "Platform-optimized launcher with VTK environment configuration for macOS",
+        "documentation" : { },
+        "id" : "6",
+        "name" : "macOS Launcher",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.macoslauncher"
+        },
+        "relationships" : [ {
+          "description" : "Provides macOS optimizations",
+          "destinationId" : "4",
+          "id" : "26",
+          "sourceId" : "6",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,Platform",
+        "technology" : "Python"
+      }, {
+        "description" : "Main processing pipeline for E57 vehicle analysis with interior extraction",
+        "documentation" : { },
+        "id" : "7",
+        "name" : "Vehicle Analysis Engine",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.vehicleanalyzer"
+        },
+        "relationships" : [ {
+          "description" : "Reads LIDAR data",
+          "destinationId" : "8",
+          "id" : "33",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Performs spatial analysis",
+          "destinationId" : "12",
+          "id" : "34",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Saves analysis results",
+          "destinationId" : "16",
+          "id" : "35",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Visualizes results",
+          "destinationId" : "9",
+          "id" : "36",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Uses analysis parameters",
+          "destinationId" : "15",
+          "id" : "48",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Handles processing errors",
+          "destinationId" : "14",
+          "id" : "55",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,Engine",
+        "technology" : "Python/scikit-learn"
+      }, {
+        "description" : "Universal point cloud file reader supporting E57, PCD, and ROS bag formats",
+        "documentation" : { },
+        "id" : "8",
+        "name" : "Multi-Format File Processor",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.fileprocessor"
+        },
+        "relationships" : [ {
+          "description" : "Reads E57/PCD/BAG files",
+          "destinationId" : "2",
+          "id" : "37",
+          "sourceId" : "8",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Handles file format errors",
+          "destinationId" : "14",
+          "id" : "39",
+          "sourceId" : "8",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Reports file errors",
+          "destinationId" : "14",
+          "id" : "56",
+          "sourceId" : "8",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,Processor",
+        "technology" : "Python/pye57"
+      }, {
+        "description" : "PyVista-based 3D rendering with VTK safety management",
+        "documentation" : { },
+        "id" : "9",
+        "name" : "3D Visualization Engine",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.visualizationengine"
+        },
+        "relationships" : [ {
+          "description" : "Uses VTK safety wrappers",
+          "destinationId" : "13",
+          "id" : "40",
+          "sourceId" : "9",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Uses rendering settings",
+          "destinationId" : "15",
+          "id" : "49",
+          "sourceId" : "9",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Reports rendering errors",
+          "destinationId" : "14",
+          "id" : "57",
+          "sourceId" : "9",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,Renderer",
+        "technology" : "Python/PyVista/VTK"
+      }, {
+        "description" : "3D cube-based region selection tool with real-time visual feedback",
+        "documentation" : { },
+        "id" : "10",
+        "name" : "Interactive Cube Selector",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.interactiveselector"
+        },
+        "relationships" : [ {
+          "description" : "Uses VTK safety wrappers",
+          "destinationId" : "13",
+          "id" : "41",
+          "sourceId" : "10",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Creates 3D scenes",
+          "destinationId" : "9",
+          "id" : "42",
+          "sourceId" : "10",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Calculates spatial selections",
+          "destinationId" : "12",
+          "id" : "43",
+          "sourceId" : "10",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Saves selected regions",
+          "destinationId" : "16",
+          "id" : "44",
+          "sourceId" : "10",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Uses GUI parameters",
+          "destinationId" : "15",
+          "id" : "50",
+          "sourceId" : "10",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,Tool",
+        "technology" : "Python/VTK"
+      }, {
+        "description" : "Interactive tool for positioning human models within point cloud scenes",
+        "documentation" : { },
+        "id" : "11",
+        "name" : "Human Model Positioner",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.humanpositioner"
+        },
+        "relationships" : [ {
+          "description" : "Uses VTK safety wrappers",
+          "destinationId" : "13",
+          "id" : "45",
+          "sourceId" : "11",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Creates human model scenes",
+          "destinationId" : "9",
+          "id" : "46",
+          "sourceId" : "11",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Saves human model positions",
+          "destinationId" : "16",
+          "id" : "47",
+          "sourceId" : "11",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Uses model parameters",
+          "destinationId" : "15",
+          "id" : "51",
+          "sourceId" : "11",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,Tool",
+        "technology" : "Python/VTK"
+      }, {
+        "description" : "3D spatial analysis with voxel grids and distance transforms",
+        "documentation" : { },
+        "id" : "12",
+        "name" : "Spatial Analysis Module",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.spatialanalyzer"
+        },
+        "tags" : "Element,Container,Analyzer",
+        "technology" : "Python/SciPy"
+      }, {
+        "description" : "Centralized VTK resource management preventing segmentation faults",
+        "documentation" : { },
+        "id" : "13",
+        "name" : "VTK Safety Manager",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.vtksafetymanager"
+        },
+        "tags" : "Element,Container,Utility",
+        "technology" : "Python/VTK"
+      }, {
+        "description" : "Standardized error handling and logging with custom exceptions",
+        "documentation" : { },
+        "id" : "14",
+        "name" : "Error Handling System",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.errorhandler"
+        },
+        "relationships" : [ {
+          "description" : "Writes log files",
+          "destinationId" : "2",
+          "id" : "53",
+          "sourceId" : "14",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,Support",
+        "technology" : "Python"
+      }, {
+        "description" : "Centralized configuration for analysis parameters and rendering settings",
+        "documentation" : { },
+        "id" : "15",
+        "name" : "Configuration Manager",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.configmanager"
+        },
+        "tags" : "Element,Container,Config",
+        "technology" : "Python"
+      }, {
+        "description" : "Result saving and loading with metadata management",
+        "documentation" : { },
+        "id" : "16",
+        "name" : "Output Management System",
+        "properties" : {
+          "structurizr.dsl.identifier" : "lidarsystem.outputmanager"
+        },
+        "relationships" : [ {
+          "description" : "Writes analysis results",
+          "destinationId" : "2",
+          "id" : "52",
+          "sourceId" : "16",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container,Storage",
+        "technology" : "Python/NumPy"
+      } ],
+      "description" : "Comprehensive suite for processing, analyzing, and visualizing LIDAR point cloud data from vehicle scans",
+      "documentation" : { },
+      "id" : "3",
+      "location" : "Unspecified",
+      "name" : "LIDAR Point Cloud Processing System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "lidarsystem"
+      },
+      "relationships" : [ {
+        "description" : "Reads E57/PCD/BAG files",
+        "destinationId" : "2",
+        "id" : "38",
+        "linkedRelationshipId" : "37",
+        "sourceId" : "3"
+      }, {
+        "description" : "Uses for 3D rendering",
+        "destinationId" : "61",
+        "id" : "67",
+        "sourceId" : "3",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Uses DBSCAN clustering",
+        "destinationId" : "62",
+        "id" : "68",
+        "sourceId" : "3",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Uses numerical operations",
+        "destinationId" : "63",
+        "id" : "69",
+        "sourceId" : "3",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Software System,System"
+    }, {
+      "description" : "Industry-standard LIDAR data files containing vehicle scan information",
+      "documentation" : { },
+      "id" : "58",
+      "location" : "Unspecified",
+      "name" : "E57 LIDAR Files",
+      "properties" : {
+        "structurizr.dsl.identifier" : "e57files"
+      },
+      "relationships" : [ {
+        "description" : "Provides vehicle LIDAR data",
+        "destinationId" : "3",
+        "id" : "64",
+        "sourceId" : "58",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Software System,External"
+    }, {
+      "description" : "Point Cloud Data format files for 3D point cloud storage",
+      "documentation" : { },
+      "id" : "59",
+      "location" : "Unspecified",
+      "name" : "PCD Files",
+      "properties" : {
+        "structurizr.dsl.identifier" : "pcdfiles"
+      },
+      "relationships" : [ {
+        "description" : "Provides point cloud data",
+        "destinationId" : "3",
+        "id" : "65",
+        "sourceId" : "59",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Software System,External"
+    }, {
+      "description" : "Robot Operating System bag files containing sensor data streams",
+      "documentation" : { },
+      "id" : "60",
+      "location" : "Unspecified",
+      "name" : "ROS Bag Files",
+      "properties" : {
+        "structurizr.dsl.identifier" : "rosbagfiles"
+      },
+      "relationships" : [ {
+        "description" : "Provides ROS sensor data",
+        "destinationId" : "3",
+        "id" : "66",
+        "sourceId" : "60",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Software System,External"
+    }, {
+      "description" : "Visualization Toolkit for 3D rendering and interaction",
+      "documentation" : { },
+      "id" : "61",
+      "location" : "Unspecified",
+      "name" : "VTK/PyVista Library",
+      "properties" : {
+        "structurizr.dsl.identifier" : "vtklibrary"
+      },
+      "tags" : "Element,Software System,External"
+    }, {
+      "description" : "Machine learning library for clustering and analysis algorithms",
+      "documentation" : { },
+      "id" : "62",
+      "location" : "Unspecified",
+      "name" : "scikit-learn Library",
+      "properties" : {
+        "structurizr.dsl.identifier" : "scikitlearnlibrary"
+      },
+      "tags" : "Element,Software System,External"
+    }, {
+      "description" : "Scientific computing libraries for numerical operations",
+      "documentation" : { },
+      "id" : "63",
+      "location" : "Unspecified",
+      "name" : "NumPy/SciPy Stack",
+      "properties" : {
+        "structurizr.dsl.identifier" : "numpylibrary"
+      },
+      "tags" : "Element,Software System,External"
+    } ]
+  },
+  "name" : "LIDAR Point Cloud Processing System",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlICJMSURBUiBQb2ludCBDbG91ZCBQcm9jZXNzaW5nIFN5c3RlbSIgIkNvbXByZWhlbnNpdmUgYXJjaGl0ZWN0dXJlIGRvY3VtZW50YXRpb24gZm9yIExJREFSIHBvaW50IGNsb3VkIGFuYWx5c2lzIGFuZCB2aXN1YWxpemF0aW9uIGFwcGxpY2F0aW9uIiB7CgogICAgIWlkZW50aWZpZXJzIGhpZXJhcmNoaWNhbAoKICAgIG1vZGVsIHsKICAgICAgICAjIEV4dGVybmFsIFN5c3RlbXMKICAgICAgICB1c2VyID0gcGVyc29uICJMSURBUiBBbmFseXN0IiAiUmVzZWFyY2ggc2NpZW50aXN0IG9yIGVuZ2luZWVyIGFuYWx5emluZyB2ZWhpY2xlIExJREFSIGRhdGEiICJVc2VyIgogICAgICAgIGZpbGVTeXN0ZW0gPSBzb2Z0d2FyZVN5c3RlbSAiRmlsZSBTeXN0ZW0iICJMb2NhbCBmaWxlIHN0b3JhZ2UgZm9yIExJREFSIGRhdGEgYW5kIGFuYWx5c2lzIHJlc3VsdHMiICJFeHRlcm5hbCIKCiAgICAgICAgIyBDb3JlIExJREFSIFByb2Nlc3NpbmcgU3lzdGVtCiAgICAgICAgbGlkYXJTeXN0ZW0gPSBzb2Z0d2FyZVN5c3RlbSAiTElEQVIgUG9pbnQgQ2xvdWQgUHJvY2Vzc2luZyBTeXN0ZW0iICJDb21wcmVoZW5zaXZlIHN1aXRlIGZvciBwcm9jZXNzaW5nLCBhbmFseXppbmcsIGFuZCB2aXN1YWxpemluZyBMSURBUiBwb2ludCBjbG91ZCBkYXRhIGZyb20gdmVoaWNsZSBzY2FucyIgIlN5c3RlbSIgewoKICAgICAgICAgICAgIyBVc2VyIEludGVyZmFjZSBMYXllcgogICAgICAgICAgICBsYXVuY2hlckFwcCA9IGNvbnRhaW5lciAiVW5pdmVyc2FsIExhdW5jaGVyIiAiRW50cnkgcG9pbnQgYXBwbGljYXRpb24gcHJvdmlkaW5nIG11bHRpLW1vZGUgYWNjZXNzIHRvIGFsbCBzeXN0ZW0gZmVhdHVyZXMiICJQeXRob24iICJBcHBsaWNhdGlvbiIKICAgICAgICAgICAgZ3VpQXBwID0gY29udGFpbmVyICJHVUkgQXBwbGljYXRpb24iICJDb21wcmVoZW5zaXZlIFRraW50ZXItYmFzZWQgZ3JhcGhpY2FsIGludGVyZmFjZSBmb3IgaW50ZXJhY3RpdmUgTElEQVIgYW5hbHlzaXMiICJQeXRob24vVGtpbnRlciIgIkdVSSIKICAgICAgICAgICAgbWFjb3NMYXVuY2hlciA9IGNvbnRhaW5lciAibWFjT1MgTGF1bmNoZXIiICJQbGF0Zm9ybS1vcHRpbWl6ZWQgbGF1bmNoZXIgd2l0aCBWVEsgZW52aXJvbm1lbnQgY29uZmlndXJhdGlvbiBmb3IgbWFjT1MiICJQeXRob24iICJQbGF0Zm9ybSIKCiAgICAgICAgICAgICMgQ29yZSBQcm9jZXNzaW5nIExheWVyCiAgICAgICAgICAgIHZlaGljbGVBbmFseXplciA9IGNvbnRhaW5lciAiVmVoaWNsZSBBbmFseXNpcyBFbmdpbmUiICJNYWluIHByb2Nlc3NpbmcgcGlwZWxpbmUgZm9yIEU1NyB2ZWhpY2xlIGFuYWx5c2lzIHdpdGggaW50ZXJpb3IgZXh0cmFjdGlvbiIgIlB5dGhvbi9zY2lraXQtbGVhcm4iICJFbmdpbmUiCiAgICAgICAgICAgIGZpbGVQcm9jZXNzb3IgPSBjb250YWluZXIgIk11bHRpLUZvcm1hdCBGaWxlIFByb2Nlc3NvciIgIlVuaXZlcnNhbCBwb2ludCBjbG91ZCBmaWxlIHJlYWRlciBzdXBwb3J0aW5nIEU1NywgUENELCBhbmQgUk9TIGJhZyBmb3JtYXRzIiAiUHl0aG9uL3B5ZTU3IiAiUHJvY2Vzc29yIgogICAgICAgICAgICB2aXN1YWxpemF0aW9uRW5naW5lID0gY29udGFpbmVyICIzRCBWaXN1YWxpemF0aW9uIEVuZ2luZSIgIlB5VmlzdGEtYmFzZWQgM0QgcmVuZGVyaW5nIHdpdGggVlRLIHNhZmV0eSBtYW5hZ2VtZW50IiAiUHl0aG9uL1B5VmlzdGEvVlRLIiAiUmVuZGVyZXIiCgogICAgICAgICAgICAjIEFuYWx5c2lzIE1vZHVsZXMKICAgICAgICAgICAgaW50ZXJhY3RpdmVTZWxlY3RvciA9IGNvbnRhaW5lciAiSW50ZXJhY3RpdmUgQ3ViZSBTZWxlY3RvciIgIjNEIGN1YmUtYmFzZWQgcmVnaW9uIHNlbGVjdGlvbiB0b29sIHdpdGggcmVhbC10aW1lIHZpc3VhbCBmZWVkYmFjayIgIlB5dGhvbi9WVEsiICJUb29sIgogICAgICAgICAgICBodW1hblBvc2l0aW9uZXIgPSBjb250YWluZXIgIkh1bWFuIE1vZGVsIFBvc2l0aW9uZXIiICJJbnRlcmFjdGl2ZSB0b29sIGZvciBwb3NpdGlvbmluZyBodW1hbiBtb2RlbHMgd2l0aGluIHBvaW50IGNsb3VkIHNjZW5lcyIgIlB5dGhvbi9WVEsiICJUb29sIgogICAgICAgICAgICBzcGF0aWFsQW5hbHl6ZXIgPSBjb250YWluZXIgIlNwYXRpYWwgQW5hbHlzaXMgTW9kdWxlIiAiM0Qgc3BhdGlhbCBhbmFseXNpcyB3aXRoIHZveGVsIGdyaWRzIGFuZCBkaXN0YW5jZSB0cmFuc2Zvcm1zIiAiUHl0aG9uL1NjaVB5IiAiQW5hbHl6ZXIiCgogICAgICAgICAgICAjIFV0aWxpdHkgYW5kIFN1cHBvcnQgTGF5ZXIKICAgICAgICAgICAgdnRrU2FmZXR5TWFuYWdlciA9IGNvbnRhaW5lciAiVlRLIFNhZmV0eSBNYW5hZ2VyIiAiQ2VudHJhbGl6ZWQgVlRLIHJlc291cmNlIG1hbmFnZW1lbnQgcHJldmVudGluZyBzZWdtZW50YXRpb24gZmF1bHRzIiAiUHl0aG9uL1ZUSyIgIlV0aWxpdHkiCiAgICAgICAgICAgIGVycm9ySGFuZGxlciA9IGNvbnRhaW5lciAiRXJyb3IgSGFuZGxpbmcgU3lzdGVtIiAiU3RhbmRhcmRpemVkIGVycm9yIGhhbmRsaW5nIGFuZCBsb2dnaW5nIHdpdGggY3VzdG9tIGV4Y2VwdGlvbnMiICJQeXRob24iICJTdXBwb3J0IgogICAgICAgICAgICBjb25maWdNYW5hZ2VyID0gY29udGFpbmVyICJDb25maWd1cmF0aW9uIE1hbmFnZXIiICJDZW50cmFsaXplZCBjb25maWd1cmF0aW9uIGZvciBhbmFseXNpcyBwYXJhbWV0ZXJzIGFuZCByZW5kZXJpbmcgc2V0dGluZ3MiICJQeXRob24iICJDb25maWciCiAgICAgICAgICAgIG91dHB1dE1hbmFnZXIgPSBjb250YWluZXIgIk91dHB1dCBNYW5hZ2VtZW50IFN5c3RlbSIgIlJlc3VsdCBzYXZpbmcgYW5kIGxvYWRpbmcgd2l0aCBtZXRhZGF0YSBtYW5hZ2VtZW50IiAiUHl0aG9uL051bVB5IiAiU3RvcmFnZSIKCiAgICAgICAgICAgICMgRGF0YSBGbG93IFJlbGF0aW9uc2hpcHMKICAgICAgICAgICAgdXNlciAtPiBsYXVuY2hlckFwcCAiTGF1bmNoZXMgYXBwbGljYXRpb24iCiAgICAgICAgICAgIHVzZXIgLT4gZ3VpQXBwICJJbnRlcmFjdHMgd2l0aCBHVUkiCiAgICAgICAgICAgIHVzZXIgLT4gaW50ZXJhY3RpdmVTZWxlY3RvciAiTWFuaXB1bGF0ZXMgY3ViZSB3aWRnZXQiCiAgICAgICAgICAgIHVzZXIgLT4gaHVtYW5Qb3NpdGlvbmVyICJQb3NpdGlvbnMgaHVtYW4gbW9kZWxzIgoKICAgICAgICAgICAgIyBMYXVuY2hlciByZWxhdGlvbnNoaXBzCiAgICAgICAgICAgIGxhdW5jaGVyQXBwIC0+IGd1aUFwcCAiTGF1bmNoZXMgR1VJIG1vZGUiCiAgICAgICAgICAgIGxhdW5jaGVyQXBwIC0+IHZlaGljbGVBbmFseXplciAiTGF1bmNoZXMgaGVhZGxlc3MgYW5hbHlzaXMiCiAgICAgICAgICAgIGxhdW5jaGVyQXBwIC0+IGludGVyYWN0aXZlU2VsZWN0b3IgIkxhdW5jaGVzIGN1YmUgZWRpdG9yIgogICAgICAgICAgICBsYXVuY2hlckFwcCAtPiBodW1hblBvc2l0aW9uZXIgIkxhdW5jaGVzIGh1bWFuIHBvc2l0aW9uZXIiCiAgICAgICAgICAgIG1hY29zTGF1bmNoZXIgLT4gbGF1bmNoZXJBcHAgIlByb3ZpZGVzIG1hY09TIG9wdGltaXphdGlvbnMiCgogICAgICAgICAgICAjIEdVSSByZWxhdGlvbnNoaXBzCiAgICAgICAgICAgIGd1aUFwcCAtPiBmaWxlUHJvY2Vzc29yICJMb2FkcyBwb2ludCBjbG91ZCBmaWxlcyIKICAgICAgICAgICAgZ3VpQXBwIC0+IHZlaGljbGVBbmFseXplciAiRXhlY3V0ZXMgYW5hbHlzaXMgcGlwZWxpbmUiCiAgICAgICAgICAgIGd1aUFwcCAtPiB2aXN1YWxpemF0aW9uRW5naW5lICJDcmVhdGVzIDNEIHZpc3VhbGl6YXRpb25zIgogICAgICAgICAgICBndWlBcHAgLT4gaW50ZXJhY3RpdmVTZWxlY3RvciAiUGVyZm9ybXMgY3ViZSBzZWxlY3Rpb24iCiAgICAgICAgICAgIGd1aUFwcCAtPiBodW1hblBvc2l0aW9uZXIgIlBvc2l0aW9ucyBodW1hbiBtb2RlbHMiCiAgICAgICAgICAgIGd1aUFwcCAtPiBvdXRwdXRNYW5hZ2VyICJTYXZlcy9sb2FkcyByZXN1bHRzIgoKICAgICAgICAgICAgIyBDb3JlIHByb2Nlc3NpbmcgcmVsYXRpb25zaGlwcwogICAgICAgICAgICB2ZWhpY2xlQW5hbHl6ZXIgLT4gZmlsZVByb2Nlc3NvciAiUmVhZHMgTElEQVIgZGF0YSIKICAgICAgICAgICAgdmVoaWNsZUFuYWx5emVyIC0+IHNwYXRpYWxBbmFseXplciAiUGVyZm9ybXMgc3BhdGlhbCBhbmFseXNpcyIKICAgICAgICAgICAgdmVoaWNsZUFuYWx5emVyIC0+IG91dHB1dE1hbmFnZXIgIlNhdmVzIGFuYWx5c2lzIHJlc3VsdHMiCiAgICAgICAgICAgIHZlaGljbGVBbmFseXplciAtPiB2aXN1YWxpemF0aW9uRW5naW5lICJWaXN1YWxpemVzIHJlc3VsdHMiCgogICAgICAgICAgICAjIEZpbGUgcHJvY2Vzc2luZyByZWxhdGlvbnNoaXBzCiAgICAgICAgICAgIGZpbGVQcm9jZXNzb3IgLT4gZmlsZVN5c3RlbSAiUmVhZHMgRTU3L1BDRC9CQUcgZmlsZXMiCiAgICAgICAgICAgIGZpbGVQcm9jZXNzb3IgLT4gZXJyb3JIYW5kbGVyICJIYW5kbGVzIGZpbGUgZm9ybWF0IGVycm9ycyIKCiAgICAgICAgICAgICMgVmlzdWFsaXphdGlvbiByZWxhdGlvbnNoaXBzCiAgICAgICAgICAgIHZpc3VhbGl6YXRpb25FbmdpbmUgLT4gdnRrU2FmZXR5TWFuYWdlciAiVXNlcyBWVEsgc2FmZXR5IHdyYXBwZXJzIgogICAgICAgICAgICBpbnRlcmFjdGl2ZVNlbGVjdG9yIC0+IHZ0a1NhZmV0eU1hbmFnZXIgIlVzZXMgVlRLIHNhZmV0eSB3cmFwcGVycyIKICAgICAgICAgICAgaW50ZXJhY3RpdmVTZWxlY3RvciAtPiB2aXN1YWxpemF0aW9uRW5naW5lICJDcmVhdGVzIDNEIHNjZW5lcyIKICAgICAgICAgICAgaW50ZXJhY3RpdmVTZWxlY3RvciAtPiBzcGF0aWFsQW5hbHl6ZXIgIkNhbGN1bGF0ZXMgc3BhdGlhbCBzZWxlY3Rpb25zIgogICAgICAgICAgICBpbnRlcmFjdGl2ZVNlbGVjdG9yIC0+IG91dHB1dE1hbmFnZXIgIlNhdmVzIHNlbGVjdGVkIHJlZ2lvbnMiCiAgICAgICAgICAgIGh1bWFuUG9zaXRpb25lciAtPiB2dGtTYWZldHlNYW5hZ2VyICJVc2VzIFZUSyBzYWZldHkgd3JhcHBlcnMiCiAgICAgICAgICAgIGh1bWFuUG9zaXRpb25lciAtPiB2aXN1YWxpemF0aW9uRW5naW5lICJDcmVhdGVzIGh1bWFuIG1vZGVsIHNjZW5lcyIKICAgICAgICAgICAgaHVtYW5Qb3NpdGlvbmVyIC0+IG91dHB1dE1hbmFnZXIgIlNhdmVzIGh1bWFuIG1vZGVsIHBvc2l0aW9ucyIKCiAgICAgICAgICAgICMgU3VwcG9ydCBzeXN0ZW0gcmVsYXRpb25zaGlwcwogICAgICAgICAgICB2ZWhpY2xlQW5hbHl6ZXIgLT4gY29uZmlnTWFuYWdlciAiVXNlcyBhbmFseXNpcyBwYXJhbWV0ZXJzIgogICAgICAgICAgICB2aXN1YWxpemF0aW9uRW5naW5lIC0+IGNvbmZpZ01hbmFnZXIgIlVzZXMgcmVuZGVyaW5nIHNldHRpbmdzIgogICAgICAgICAgICBpbnRlcmFjdGl2ZVNlbGVjdG9yIC0+IGNvbmZpZ01hbmFnZXIgIlVzZXMgR1VJIHBhcmFtZXRlcnMiCiAgICAgICAgICAgIGh1bWFuUG9zaXRpb25lciAtPiBjb25maWdNYW5hZ2VyICJVc2VzIG1vZGVsIHBhcmFtZXRlcnMiCgogICAgICAgICAgICBvdXRwdXRNYW5hZ2VyIC0+IGZpbGVTeXN0ZW0gIldyaXRlcyBhbmFseXNpcyByZXN1bHRzIgogICAgICAgICAgICBlcnJvckhhbmRsZXIgLT4gZmlsZVN5c3RlbSAiV3JpdGVzIGxvZyBmaWxlcyIKCiAgICAgICAgICAgICMgQ3Jvc3MtY3V0dGluZyBjb25jZXJucwogICAgICAgICAgICBndWlBcHAgLT4gZXJyb3JIYW5kbGVyICJMb2dzIGVycm9ycyBhbmQgc3RhdHVzIgogICAgICAgICAgICB2ZWhpY2xlQW5hbHl6ZXIgLT4gZXJyb3JIYW5kbGVyICJIYW5kbGVzIHByb2Nlc3NpbmcgZXJyb3JzIgogICAgICAgICAgICBmaWxlUHJvY2Vzc29yIC0+IGVycm9ySGFuZGxlciAiUmVwb3J0cyBmaWxlIGVycm9ycyIKICAgICAgICAgICAgdmlzdWFsaXphdGlvbkVuZ2luZSAtPiBlcnJvckhhbmRsZXIgIlJlcG9ydHMgcmVuZGVyaW5nIGVycm9ycyIKICAgICAgICB9CgogICAgICAgICMgRXh0ZXJuYWwgZGVwZW5kZW5jaWVzIGFuZCBkYXRhIHNvdXJjZXMKICAgICAgICBlNTdGaWxlcyA9IHNvZnR3YXJlU3lzdGVtICJFNTcgTElEQVIgRmlsZXMiICJJbmR1c3RyeS1zdGFuZGFyZCBMSURBUiBkYXRhIGZpbGVzIGNvbnRhaW5pbmcgdmVoaWNsZSBzY2FuIGluZm9ybWF0aW9uIiAiRXh0ZXJuYWwiCiAgICAgICAgcGNkRmlsZXMgPSBzb2Z0d2FyZVN5c3RlbSAiUENEIEZpbGVzIiAiUG9pbnQgQ2xvdWQgRGF0YSBmb3JtYXQgZmlsZXMgZm9yIDNEIHBvaW50IGNsb3VkIHN0b3JhZ2UiICJFeHRlcm5hbCIKICAgICAgICByb3NCYWdGaWxlcyA9IHNvZnR3YXJlU3lzdGVtICJST1MgQmFnIEZpbGVzIiAiUm9ib3QgT3BlcmF0aW5nIFN5c3RlbSBiYWcgZmlsZXMgY29udGFpbmluZyBzZW5zb3IgZGF0YSBzdHJlYW1zIiAiRXh0ZXJuYWwiCgogICAgICAgICMgRXh0ZXJuYWwgbGlicmFyeSBkZXBlbmRlbmNpZXMgKHJlcHJlc2VudGVkIGFzIGV4dGVybmFsIHN5c3RlbXMpCiAgICAgICAgdnRrTGlicmFyeSA9IHNvZnR3YXJlU3lzdGVtICJWVEsvUHlWaXN0YSBMaWJyYXJ5IiAiVmlzdWFsaXphdGlvbiBUb29sa2l0IGZvciAzRCByZW5kZXJpbmcgYW5kIGludGVyYWN0aW9uIiAiRXh0ZXJuYWwiCiAgICAgICAgc2Npa2l0TGVhcm5MaWJyYXJ5ID0gc29mdHdhcmVTeXN0ZW0gInNjaWtpdC1sZWFybiBMaWJyYXJ5IiAiTWFjaGluZSBsZWFybmluZyBsaWJyYXJ5IGZvciBjbHVzdGVyaW5nIGFuZCBhbmFseXNpcyBhbGdvcml0aG1zIiAiRXh0ZXJuYWwiCiAgICAgICAgbnVtcHlMaWJyYXJ5ID0gc29mdHdhcmVTeXN0ZW0gIk51bVB5L1NjaVB5IFN0YWNrIiAiU2NpZW50aWZpYyBjb21wdXRpbmcgbGlicmFyaWVzIGZvciBudW1lcmljYWwgb3BlcmF0aW9ucyIgIkV4dGVybmFsIgoKICAgICAgICAjIEV4dGVybmFsIHN5c3RlbSB0byBzeXN0ZW0gcmVsYXRpb25zaGlwcwogICAgICAgIGU1N0ZpbGVzIC0+IGxpZGFyU3lzdGVtICJQcm92aWRlcyB2ZWhpY2xlIExJREFSIGRhdGEiCiAgICAgICAgcGNkRmlsZXMgLT4gbGlkYXJTeXN0ZW0gIlByb3ZpZGVzIHBvaW50IGNsb3VkIGRhdGEiCiAgICAgICAgcm9zQmFnRmlsZXMgLT4gbGlkYXJTeXN0ZW0gIlByb3ZpZGVzIFJPUyBzZW5zb3IgZGF0YSIKICAgICAgICBsaWRhclN5c3RlbSAtPiB2dGtMaWJyYXJ5ICJVc2VzIGZvciAzRCByZW5kZXJpbmciCiAgICAgICAgbGlkYXJTeXN0ZW0gLT4gc2Npa2l0TGVhcm5MaWJyYXJ5ICJVc2VzIERCU0NBTiBjbHVzdGVyaW5nIgogICAgICAgIGxpZGFyU3lzdGVtIC0+IG51bXB5TGlicmFyeSAiVXNlcyBudW1lcmljYWwgb3BlcmF0aW9ucyIKCiAgICB9CgogICAgdmlld3MgewogICAgICAgICMgU3lzdGVtIENvbnRleHQgVmlldwogICAgICAgIHN5c3RlbUNvbnRleHQgbGlkYXJTeXN0ZW0gIlN5c3RlbUNvbnRleHQiIHsKICAgICAgICAgICAgdGl0bGUgIkxJREFSIFBvaW50IENsb3VkIFByb2Nlc3NpbmcgU3lzdGVtIC0gU3lzdGVtIENvbnRleHQiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uICJIaWdoLWxldmVsIHZpZXcgc2hvd2luZyB0aGUgTElEQVIgcHJvY2Vzc2luZyBzeXN0ZW0gYW5kIGl0cyBpbnRlcmFjdGlvbnMgd2l0aCB1c2VycyBhbmQgZXh0ZXJuYWwgc3lzdGVtcyIKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGV4Y2x1ZGUgInJlbGF0aW9uc2hpcC50YWc9PUludGVybmFsIgogICAgICAgICAgICBhdXRvTGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICAjIENvbnRhaW5lciBWaWV3IC0gT3ZlcmFsbCBBcmNoaXRlY3R1cmUKICAgICAgICBjb250YWluZXIgbGlkYXJTeXN0ZW0gIkNvbnRhaW5lclZpZXciIHsKICAgICAgICAgICAgdGl0bGUgIkxJREFSIFBvaW50IENsb3VkIFByb2Nlc3NpbmcgU3lzdGVtIC0gQ29udGFpbmVyIEFyY2hpdGVjdHVyZSIKICAgICAgICAgICAgZGVzY3JpcHRpb24gIkNvbnRhaW5lci1sZXZlbCBhcmNoaXRlY3R1cmUgc2hvd2luZyB0aGUgbWFpbiBhcHBsaWNhdGlvbnMsIHByb2Nlc3NpbmcgZW5naW5lcywgYW5kIHN1cHBvcnQgc3lzdGVtcyIKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGV4Y2x1ZGUgImVsZW1lbnQudGFnPT1FeHRlcm5hbCIKICAgICAgICAgICAgYXV0b0xheW91dCB0YgogICAgICAgIH0KCiAgICAgICAgIyBDb21wb25lbnQgVmlldyAtIEdVSSBBcHBsaWNhdGlvbiBEZXRhaWwKICAgICAgICBjb21wb25lbnQgbGlkYXJTeXN0ZW0uZ3VpQXBwICJHVUlDb21wb25lbnRzIiB7CiAgICAgICAgICAgIHRpdGxlICJHVUkgQXBwbGljYXRpb24gLSBJbnRlcm5hbCBDb21wb25lbnRzIgogICAgICAgICAgICBkZXNjcmlwdGlvbiAiRGV0YWlsZWQgdmlldyBvZiB0aGUgR1VJIGFwcGxpY2F0aW9uIHNob3dpbmcgdXNlciBpbnRlcmZhY2UgY29tcG9uZW50cyBhbmQgdGhlaXIgaW50ZXJhY3Rpb25zIgogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b0xheW91dCB0YgogICAgICAgIH0KCiAgICAgICAgIyBDb21wb25lbnQgVmlldyAtIFZlaGljbGUgQW5hbHlzaXMgRGV0YWlsCiAgICAgICAgY29tcG9uZW50IGxpZGFyU3lzdGVtLnZlaGljbGVBbmFseXplciAiVmVoaWNsZUFuYWx5c2lzQ29tcG9uZW50cyIgewogICAgICAgICAgICB0aXRsZSAiVmVoaWNsZSBBbmFseXNpcyBFbmdpbmUgLSBQcm9jZXNzaW5nIFBpcGVsaW5lIgogICAgICAgICAgICBkZXNjcmlwdGlvbiAiRGV0YWlsZWQgdmlldyBvZiB0aGUgdmVoaWNsZSBhbmFseXNpcyBwaXBlbGluZSBzaG93aW5nIGRhdGEgcHJvY2Vzc2luZyBzdGFnZXMiCiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvTGF5b3V0IGxyCiAgICAgICAgfQoKCiAgICAgICAgIyBEeW5hbWljIFZpZXcgLSBBbmFseXNpcyBXb3JrZmxvdwogICAgICAgIGR5bmFtaWMgbGlkYXJTeXN0ZW0gIkFuYWx5c2lzV29ya2Zsb3ciIHsKICAgICAgICAgICAgdGl0bGUgIlZlaGljbGUgQW5hbHlzaXMgV29ya2Zsb3ciCiAgICAgICAgICAgIGRlc2NyaXB0aW9uICJTdGVwLWJ5LXN0ZXAgcHJvY2VzcyBmbG93IGZvciBhbmFseXppbmcgdmVoaWNsZSBMSURBUiBkYXRhIgoKICAgICAgICAgICAgdXNlciAtPiBsaWRhclN5c3RlbS5sYXVuY2hlckFwcCAiMS4gTGF1bmNoIGFwcGxpY2F0aW9uIgogICAgICAgICAgICBsaWRhclN5c3RlbS5sYXVuY2hlckFwcCAtPiBsaWRhclN5c3RlbS5ndWlBcHAgIjIuIFN0YXJ0IEdVSSBtb2RlIgogICAgICAgICAgICB1c2VyIC0+IGxpZGFyU3lzdGVtLmd1aUFwcCAiMy4gU2VsZWN0IEU1NyBmaWxlIgogICAgICAgICAgICBsaWRhclN5c3RlbS5ndWlBcHAgLT4gbGlkYXJTeXN0ZW0uZmlsZVByb2Nlc3NvciAiNC4gTG9hZCBwb2ludCBjbG91ZCBkYXRhIgogICAgICAgICAgICBsaWRhclN5c3RlbS5maWxlUHJvY2Vzc29yIC0+IGZpbGVTeXN0ZW0gIjUuIFJlYWQgRTU3IGZpbGUiCiAgICAgICAgICAgIGxpZGFyU3lzdGVtLmd1aUFwcCAtPiBsaWRhclN5c3RlbS52ZWhpY2xlQW5hbHl6ZXIgIjYuIFN0YXJ0IGFuYWx5c2lzIgogICAgICAgICAgICBsaWRhclN5c3RlbS52ZWhpY2xlQW5hbHl6ZXIgLT4gbGlkYXJTeXN0ZW0uc3BhdGlhbEFuYWx5emVyICI3LiBQZXJmb3JtIHNwYXRpYWwgYW5hbHlzaXMiCiAgICAgICAgICAgIGxpZGFyU3lzdGVtLnZlaGljbGVBbmFseXplciAtPiBsaWRhclN5c3RlbS5vdXRwdXRNYW5hZ2VyICI4LiBTYXZlIHJlc3VsdHMiCiAgICAgICAgICAgIGxpZGFyU3lzdGVtLm91dHB1dE1hbmFnZXIgLT4gZmlsZVN5c3RlbSAiOS4gV3JpdGUgb3V0cHV0IGZpbGVzIgogICAgICAgICAgICBsaWRhclN5c3RlbS52ZWhpY2xlQW5hbHl6ZXIgLT4gbGlkYXJTeXN0ZW0udmlzdWFsaXphdGlvbkVuZ2luZSAiMTAuIENyZWF0ZSB2aXN1YWxpemF0aW9uIgogICAgICAgICAgICBsaWRhclN5c3RlbS52aXN1YWxpemF0aW9uRW5naW5lIC0+IGxpZGFyU3lzdGVtLnZ0a1NhZmV0eU1hbmFnZXIgIjExLiBTZXR1cCBWVEsgc2FmZWx5IgogICAgICAgICAgICBsaWRhclN5c3RlbS5ndWlBcHAgLT4gdXNlciAiMTIuIERpc3BsYXkgcmVzdWx0cyIKICAgICAgICB9CgogICAgICAgICMgRHluYW1pYyBWaWV3IC0gSW50ZXJhY3RpdmUgQ3ViZSBTZWxlY3Rpb24KICAgICAgICBkeW5hbWljIGxpZGFyU3lzdGVtICJDdWJlU2VsZWN0aW9uV29ya2Zsb3ciIHsKICAgICAgICAgICAgdGl0bGUgIkludGVyYWN0aXZlIEN1YmUgU2VsZWN0aW9uIFdvcmtmbG93IgogICAgICAgICAgICBkZXNjcmlwdGlvbiAiUHJvY2VzcyBmbG93IGZvciBpbnRlcmFjdGl2ZSBjdWJlLWJhc2VkIHJlZ2lvbiBzZWxlY3Rpb24iCgogICAgICAgICAgICB1c2VyIC0+IGxpZGFyU3lzdGVtLmd1aUFwcCAiMS4gTmF2aWdhdGUgdG8gQ3ViZSBTZWxlY3Rpb24gdGFiIgogICAgICAgICAgICB1c2VyIC0+IGxpZGFyU3lzdGVtLmd1aUFwcCAiMi4gQ29uZmlndXJlIHNlbGVjdGlvbiBvcHRpb25zIgogICAgICAgICAgICBsaWRhclN5c3RlbS5ndWlBcHAgLT4gbGlkYXJTeXN0ZW0uaW50ZXJhY3RpdmVTZWxlY3RvciAiMy4gTGF1bmNoIGN1YmUgc2VsZWN0b3IiCiAgICAgICAgICAgIGxpZGFyU3lzdGVtLmludGVyYWN0aXZlU2VsZWN0b3IgLT4gbGlkYXJTeXN0ZW0udnRrU2FmZXR5TWFuYWdlciAiNC4gSW5pdGlhbGl6ZSBWVEsgc2FmZWx5IgogICAgICAgICAgICBsaWRhclN5c3RlbS5pbnRlcmFjdGl2ZVNlbGVjdG9yIC0+IGxpZGFyU3lzdGVtLnZpc3VhbGl6YXRpb25FbmdpbmUgIjUuIENyZWF0ZSAzRCBzY2VuZSIKICAgICAgICAgICAgdXNlciAtPiBsaWRhclN5c3RlbS5pbnRlcmFjdGl2ZVNlbGVjdG9yICI2LiBNYW5pcHVsYXRlIGN1YmUgd2lkZ2V0IgogICAgICAgICAgICBsaWRhclN5c3RlbS5pbnRlcmFjdGl2ZVNlbGVjdG9yIC0+IGxpZGFyU3lzdGVtLnNwYXRpYWxBbmFseXplciAiNy4gQ2FsY3VsYXRlIHNlbGVjdGlvbiIKICAgICAgICAgICAgbGlkYXJTeXN0ZW0uaW50ZXJhY3RpdmVTZWxlY3RvciAtPiBsaWRhclN5c3RlbS5vdXRwdXRNYW5hZ2VyICI4LiBTYXZlIHNlbGVjdGVkIHBvaW50cyIKICAgICAgICAgICAgbGlkYXJTeXN0ZW0ub3V0cHV0TWFuYWdlciAtPiBmaWxlU3lzdGVtICI5LiBXcml0ZSBzZWxlY3Rpb24gZmlsZSIKICAgICAgICAgICAgbGlkYXJTeXN0ZW0uaW50ZXJhY3RpdmVTZWxlY3RvciAtPiBsaWRhclN5c3RlbS5ndWlBcHAgIjEwLiBSZXR1cm4gc2VsZWN0aW9uIHJlc3VsdHMiCiAgICAgICAgICAgIGxpZGFyU3lzdGVtLmd1aUFwcCAtPiB1c2VyICIxMS4gRGlzcGxheSBzZWxlY3Rpb24gc3VtbWFyeSIKICAgICAgICB9CgogICAgICAgICMgRmlsdGVyZWQgdmlld3MgZm9yIHNwZWNpZmljIGFzcGVjdHMKICAgICAgICBjb250YWluZXIgbGlkYXJTeXN0ZW0gIlByb2Nlc3NpbmdQaXBlbGluZSIgewogICAgICAgICAgICB0aXRsZSAiQ29yZSBQcm9jZXNzaW5nIFBpcGVsaW5lIgogICAgICAgICAgICBkZXNjcmlwdGlvbiAiRm9jdXMgb24gZGF0YSBwcm9jZXNzaW5nIGFuZCBhbmFseXNpcyBjb21wb25lbnRzIgogICAgICAgICAgICBpbmNsdWRlIGxpZGFyU3lzdGVtLnZlaGljbGVBbmFseXplciBsaWRhclN5c3RlbS5maWxlUHJvY2Vzc29yIGxpZGFyU3lzdGVtLnNwYXRpYWxBbmFseXplciBsaWRhclN5c3RlbS5vdXRwdXRNYW5hZ2VyCiAgICAgICAgICAgIGluY2x1ZGUgbGlkYXJTeXN0ZW0udmVoaWNsZUFuYWx5emVyLT5saWRhclN5c3RlbS5maWxlUHJvY2Vzc29yIGxpZGFyU3lzdGVtLmZpbGVQcm9jZXNzb3ItPmxpZGFyU3lzdGVtLnNwYXRpYWxBbmFseXplciBsaWRhclN5c3RlbS5zcGF0aWFsQW5hbHl6ZXItPmxpZGFyU3lzdGVtLm91dHB1dE1hbmFnZXIKICAgICAgICAgICAgYXV0b0xheW91dCBscgogICAgICAgIH0KCiAgICAgICAgY29udGFpbmVyIGxpZGFyU3lzdGVtICJVc2VySW50ZXJmYWNlIiB7CiAgICAgICAgICAgIHRpdGxlICJVc2VyIEludGVyZmFjZSBBcmNoaXRlY3R1cmUiCiAgICAgICAgICAgIGRlc2NyaXB0aW9uICJGb2N1cyBvbiB1c2VyIGludGVyYWN0aW9uIGFuZCBpbnRlcmZhY2UgY29tcG9uZW50cyIKICAgICAgICAgICAgaW5jbHVkZSBsaWRhclN5c3RlbS5sYXVuY2hlckFwcCBsaWRhclN5c3RlbS5ndWlBcHAgbGlkYXJTeXN0ZW0ubWFjb3NMYXVuY2hlciBsaWRhclN5c3RlbS5pbnRlcmFjdGl2ZVNlbGVjdG9yIGxpZGFyU3lzdGVtLmh1bWFuUG9zaXRpb25lcgogICAgICAgICAgICBpbmNsdWRlIHVzZXItPmxpZGFyU3lzdGVtLmxhdW5jaGVyQXBwIGxpZGFyU3lzdGVtLmxhdW5jaGVyQXBwLT5saWRhclN5c3RlbS5ndWlBcHAgbGlkYXJTeXN0ZW0uZ3VpQXBwLT5saWRhclN5c3RlbS5pbnRlcmFjdGl2ZVNlbGVjdG9yIGxpZGFyU3lzdGVtLmd1aUFwcC0+bGlkYXJTeXN0ZW0uaHVtYW5Qb3NpdGlvbmVyCiAgICAgICAgICAgIGF1dG9MYXlvdXQgdGIKICAgICAgICB9CgogICAgICAgIGNvbnRhaW5lciBsaWRhclN5c3RlbSAiVmlzdWFsaXphdGlvblN0YWNrIiB7CiAgICAgICAgICAgIHRpdGxlICIzRCBWaXN1YWxpemF0aW9uIEFyY2hpdGVjdHVyZSIKICAgICAgICAgICAgZGVzY3JpcHRpb24gIkZvY3VzIG9uIHZpc3VhbGl6YXRpb24gYW5kIHJlbmRlcmluZyBjb21wb25lbnRzIgogICAgICAgICAgICBpbmNsdWRlIGxpZGFyU3lzdGVtLnZpc3VhbGl6YXRpb25FbmdpbmUgbGlkYXJTeXN0ZW0udnRrU2FmZXR5TWFuYWdlciBsaWRhclN5c3RlbS5pbnRlcmFjdGl2ZVNlbGVjdG9yIGxpZGFyU3lzdGVtLmh1bWFuUG9zaXRpb25lcgogICAgICAgICAgICBpbmNsdWRlIGxpZGFyU3lzdGVtLnZpc3VhbGl6YXRpb25FbmdpbmUtPmxpZGFyU3lzdGVtLnZ0a1NhZmV0eU1hbmFnZXIgbGlkYXJTeXN0ZW0uaW50ZXJhY3RpdmVTZWxlY3Rvci0+bGlkYXJTeXN0ZW0udnRrU2FmZXR5TWFuYWdlciBsaWRhclN5c3RlbS5odW1hblBvc2l0aW9uZXItPmxpZGFyU3lzdGVtLnZ0a1NhZmV0eU1hbmFnZXIKICAgICAgICAgICAgYXV0b0xheW91dCB0YgogICAgICAgIH0KCiAgICAgICAgIyBTdHlsaW5nCiAgICAgICAgc3R5bGVzIHsKICAgICAgICAgICAgZWxlbWVudCAiUGVyc29uIiB7CiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiMwODQyN2IiCiAgICAgICAgICAgICAgICBzaGFwZSBwZXJzb24KICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiRXh0ZXJuYWwiIHsKICAgICAgICAgICAgICAgIGNvbG9yICIjOTk5OTk5IgogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAiI2NjY2NjYyIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiU3lzdGVtIiB7CiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiMxMTY4YmQiCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgIkFwcGxpY2F0aW9uIiB7CiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiMyZTdkMzIiCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgIkdVSSIgewogICAgICAgICAgICAgICAgY29sb3IgIiNmZmZmZmYiCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICIjN2IxZmEyIgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJQbGF0Zm9ybSIgewogICAgICAgICAgICAgICAgY29sb3IgIiNmZmZmZmYiCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICIjZjU3YzAwIgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJFbmdpbmUiIHsKICAgICAgICAgICAgICAgIGNvbG9yICIjZmZmZmZmIgogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAiI2M2MjgyOCIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiUHJvY2Vzc29yIiB7CiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiM2YTFiOWEiCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgIlJlbmRlcmVyIiB7CiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiMwMDY5NWMiCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgIlRvb2wiIHsKICAgICAgICAgICAgICAgIGNvbG9yICIjZmZmZmZmIgogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAiIzVkNDAzNyIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiQW5hbHl6ZXIiIHsKICAgICAgICAgICAgICAgIGNvbG9yICIjZmZmZmZmIgogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAiI2JmMzYwYyIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiVXRpbGl0eSIgewogICAgICAgICAgICAgICAgY29sb3IgIiNmZmZmZmYiCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICIjNDI0MjQyIgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJTdXBwb3J0IiB7CiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiMzNzQ3NGYiCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgIkNvbmZpZyIgewogICAgICAgICAgICAgICAgY29sb3IgIiNmZmZmZmYiCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICIjNDU1YTY0IgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJTdG9yYWdlIiB7CiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiNmZjhmMDAiCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIHJlbGF0aW9uc2hpcCAiUmVsYXRpb25zaGlwIiB7CiAgICAgICAgICAgICAgICBjb2xvciAiIzcwNzA3MCIKICAgICAgICAgICAgICAgIHRoaWNrbmVzcyAyCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIHJlbGF0aW9uc2hpcCAiSW50ZXJuYWwiIHsKICAgICAgICAgICAgICAgIGNvbG9yICIjOTk5OTk5IgogICAgICAgICAgICAgICAgc3R5bGUgZGFzaGVkCiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9Cn0="
+  },
+  "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "5",
+      "description" : "Detailed view of the GUI application showing user interface components and their interactions",
+      "externalContainerBoundariesVisible" : false,
+      "key" : "GUIComponents",
+      "order" : 3,
+      "title" : "GUI Application - Internal Components"
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "7",
+      "description" : "Detailed view of the vehicle analysis pipeline showing data processing stages",
+      "externalContainerBoundariesVisible" : false,
+      "key" : "VehicleAnalysisComponents",
+      "order" : 4,
+      "title" : "Vehicle Analysis Engine - Processing Pipeline"
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "lastSavedView" : "SystemContext",
+      "metadataSymbols" : "SquareBrackets",
+      "styles" : {
+        "elements" : [ {
+          "background" : "#08427b",
+          "color" : "#ffffff",
+          "shape" : "Person",
+          "tag" : "Person"
+        }, {
+          "background" : "#cccccc",
+          "color" : "#999999",
+          "tag" : "External"
+        }, {
+          "background" : "#1168bd",
+          "color" : "#ffffff",
+          "tag" : "System"
+        }, {
+          "background" : "#2e7d32",
+          "color" : "#ffffff",
+          "tag" : "Application"
+        }, {
+          "background" : "#7b1fa2",
+          "color" : "#ffffff",
+          "tag" : "GUI"
+        }, {
+          "background" : "#f57c00",
+          "color" : "#ffffff",
+          "tag" : "Platform"
+        }, {
+          "background" : "#c62828",
+          "color" : "#ffffff",
+          "tag" : "Engine"
+        }, {
+          "background" : "#6a1b9a",
+          "color" : "#ffffff",
+          "tag" : "Processor"
+        }, {
+          "background" : "#00695c",
+          "color" : "#ffffff",
+          "tag" : "Renderer"
+        }, {
+          "background" : "#5d4037",
+          "color" : "#ffffff",
+          "tag" : "Tool"
+        }, {
+          "background" : "#bf360c",
+          "color" : "#ffffff",
+          "tag" : "Analyzer"
+        }, {
+          "background" : "#424242",
+          "color" : "#ffffff",
+          "tag" : "Utility"
+        }, {
+          "background" : "#37474f",
+          "color" : "#ffffff",
+          "tag" : "Support"
+        }, {
+          "background" : "#455a64",
+          "color" : "#ffffff",
+          "tag" : "Config"
+        }, {
+          "background" : "#ff8f00",
+          "color" : "#ffffff",
+          "tag" : "Storage"
+        } ],
+        "relationships" : [ {
+          "color" : "#707070",
+          "tag" : "Relationship",
+          "thickness" : 2
+        }, {
+          "color" : "#999999",
+          "style" : "Dashed",
+          "tag" : "Internal"
+        } ]
+      },
+      "terminology" : { }
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Container-level architecture showing the main applications, processing engines, and support systems",
+      "dimensions" : {
+        "height" : 3891,
+        "width" : 5709
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 199,
+        "y" : 152
+      }, {
+        "id" : "4",
+        "x" : 2249,
+        "y" : 852
+      }, {
+        "id" : "5",
+        "x" : 2778,
+        "y" : 1452
+      }, {
+        "id" : "6",
+        "x" : 2249,
+        "y" : 202
+      }, {
+        "id" : "7",
+        "x" : 3491,
+        "y" : 2052
+      }, {
+        "id" : "8",
+        "x" : 4908,
+        "y" : 2652
+      }, {
+        "id" : "9",
+        "x" : 2791,
+        "y" : 2652
+      }, {
+        "id" : "10",
+        "x" : 2262,
+        "y" : 2052
+      }, {
+        "id" : "11",
+        "x" : 1203,
+        "y" : 2052
+      }, {
+        "id" : "12",
+        "x" : 3541,
+        "y" : 2652
+      }, {
+        "id" : "13",
+        "x" : 1953,
+        "y" : 3252
+      }, {
+        "id" : "14",
+        "x" : 4908,
+        "y" : 3252
+      }, {
+        "id" : "15",
+        "x" : 2749,
+        "y" : 3252
+      }, {
+        "id" : "16",
+        "x" : 1424,
+        "y" : 2652
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "ContainerView",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "17",
+        "vertices" : [ {
+          "x" : 628,
+          "y" : 552
+        }, {
+          "x" : 2012,
+          "y" : 852
+        } ]
+      }, {
+        "id" : "19",
+        "vertices" : [ {
+          "x" : 628,
+          "y" : 552
+        }, {
+          "x" : 1378,
+          "y" : 852
+        } ]
+      }, {
+        "id" : "20"
+      }, {
+        "id" : "21",
+        "vertices" : [ {
+          "x" : 920,
+          "y" : 1752
+        } ]
+      }, {
+        "id" : "22"
+      }, {
+        "id" : "23",
+        "vertices" : [ {
+          "x" : 3378,
+          "y" : 1452
+        } ]
+      }, {
+        "id" : "24"
+      }, {
+        "id" : "25"
+      }, {
+        "id" : "26"
+      }, {
+        "id" : "27",
+        "vertices" : [ {
+          "x" : 4091,
+          "y" : 2052
+        } ]
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "29"
+      }, {
+        "id" : "30"
+      }, {
+        "id" : "31"
+      }, {
+        "id" : "32",
+        "vertices" : [ {
+          "x" : 2112,
+          "y" : 2052
+        } ]
+      }, {
+        "id" : "33"
+      }, {
+        "id" : "34"
+      }, {
+        "id" : "35"
+      }, {
+        "id" : "36"
+      }, {
+        "id" : "39",
+        "vertices" : [ {
+          "x" : 4983,
+          "y" : 3102
+        } ]
+      }, {
+        "id" : "40"
+      }, {
+        "id" : "41"
+      }, {
+        "id" : "42"
+      }, {
+        "id" : "43"
+      }, {
+        "id" : "44"
+      }, {
+        "id" : "45",
+        "vertices" : [ {
+          "x" : 1041,
+          "y" : 2652
+        }, {
+          "x" : 1041,
+          "y" : 2952
+        } ]
+      }, {
+        "id" : "46"
+      }, {
+        "id" : "47"
+      }, {
+        "id" : "48",
+        "vertices" : [ {
+          "x" : 4141,
+          "y" : 2652
+        }, {
+          "x" : 4141,
+          "y" : 2952
+        } ]
+      }, {
+        "id" : "49"
+      }, {
+        "id" : "50",
+        "vertices" : [ {
+          "x" : 2641,
+          "y" : 2952
+        } ]
+      }, {
+        "id" : "51",
+        "vertices" : [ {
+          "x" : 1274,
+          "y" : 2652
+        }, {
+          "x" : 1274,
+          "y" : 2952
+        }, {
+          "x" : 2553,
+          "y" : 3252
+        } ]
+      }, {
+        "id" : "54",
+        "vertices" : [ {
+          "x" : 4366,
+          "y" : 2052
+        }, {
+          "x" : 5508,
+          "y" : 2652
+        }, {
+          "x" : 5508,
+          "y" : 2952
+        } ]
+      }, {
+        "id" : "55"
+      }, {
+        "id" : "56",
+        "vertices" : [ {
+          "x" : 5283,
+          "y" : 3102
+        } ]
+      }, {
+        "id" : "57",
+        "vertices" : [ {
+          "x" : 3391,
+          "y" : 2952
+        } ]
+      } ],
+      "softwareSystemId" : "3",
+      "title" : "LIDAR Point Cloud Processing System - Container Architecture"
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Focus on data processing and analysis components",
+      "elements" : [ {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "ProcessingPipeline",
+      "order" : 7,
+      "relationships" : [ {
+        "id" : "33"
+      }, {
+        "id" : "34"
+      }, {
+        "id" : "35"
+      } ],
+      "softwareSystemId" : "3",
+      "title" : "Core Processing Pipeline"
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Focus on user interaction and interface components",
+      "elements" : [ {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "UserInterface",
+      "order" : 8,
+      "relationships" : [ {
+        "id" : "22"
+      }, {
+        "id" : "24"
+      }, {
+        "id" : "25"
+      }, {
+        "id" : "26"
+      }, {
+        "id" : "30"
+      }, {
+        "id" : "31"
+      } ],
+      "softwareSystemId" : "3",
+      "title" : "User Interface Architecture"
+    }, {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "Focus on visualization and rendering components",
+      "elements" : [ {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "VisualizationStack",
+      "order" : 9,
+      "relationships" : [ {
+        "id" : "40"
+      }, {
+        "id" : "41"
+      }, {
+        "id" : "42"
+      }, {
+        "id" : "45"
+      }, {
+        "id" : "46"
+      } ],
+      "softwareSystemId" : "3",
+      "title" : "3D Visualization Architecture"
+    } ],
+    "dynamicViews" : [ {
+      "description" : "Step-by-step process flow for analyzing vehicle LIDAR data",
+      "dimensions" : {
+        "height" : 1748,
+        "width" : 2480
+      },
+      "elementId" : "3",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "AnalysisWorkflow",
+      "order" : 5,
+      "paperSize" : "A5_Landscape",
+      "relationships" : [ {
+        "description" : "1. Launch application",
+        "id" : "17",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "2. Start GUI mode",
+        "id" : "22",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "3. Select E57 file",
+        "id" : "19",
+        "order" : "3",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 346,
+          "y" : 242
+        } ]
+      }, {
+        "description" : "4. Load point cloud data",
+        "id" : "27",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "5. Read E57 file",
+        "id" : "37",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "6. Start analysis",
+        "id" : "28",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "7. Perform spatial analysis",
+        "id" : "34",
+        "order" : "7",
+        "response" : false
+      }, {
+        "description" : "8. Save results",
+        "id" : "35",
+        "order" : "8",
+        "response" : false
+      }, {
+        "description" : "9. Write output files",
+        "id" : "52",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "10. Create visualization",
+        "id" : "36",
+        "order" : "10",
+        "response" : false
+      }, {
+        "description" : "11. Setup VTK safely",
+        "id" : "40",
+        "order" : "11",
+        "response" : false
+      }, {
+        "description" : "12. Display results",
+        "id" : "19",
+        "order" : "12",
+        "response" : true,
+        "vertices" : [ {
+          "x" : 78,
+          "y" : 107
+        } ]
+      } ],
+      "title" : "Vehicle Analysis Workflow"
+    }, {
+      "description" : "Process flow for interactive cube-based region selection",
+      "dimensions" : {
+        "height" : 1748,
+        "width" : 2480
+      },
+      "elementId" : "3",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "CubeSelectionWorkflow",
+      "order" : 6,
+      "paperSize" : "A5_Landscape",
+      "relationships" : [ {
+        "description" : "1. Navigate to Cube Selection tab",
+        "id" : "19",
+        "order" : "1",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 212,
+          "y" : 175
+        } ]
+      }, {
+        "description" : "2. Configure selection options",
+        "id" : "19",
+        "order" : "2",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 78,
+          "y" : 107
+        } ]
+      }, {
+        "description" : "3. Launch cube selector",
+        "id" : "30",
+        "order" : "3",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 225,
+          "y" : 300
+        } ]
+      }, {
+        "description" : "4. Initialize VTK safely",
+        "id" : "41",
+        "order" : "4",
+        "response" : false
+      }, {
+        "description" : "5. Create 3D scene",
+        "id" : "42",
+        "order" : "5",
+        "response" : false
+      }, {
+        "description" : "6. Manipulate cube widget",
+        "id" : "20",
+        "order" : "6",
+        "response" : false
+      }, {
+        "description" : "7. Calculate selection",
+        "id" : "43",
+        "order" : "7",
+        "response" : false
+      }, {
+        "description" : "8. Save selected points",
+        "id" : "44",
+        "order" : "8",
+        "response" : false
+      }, {
+        "description" : "9. Write selection file",
+        "id" : "52",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "10. Return selection results",
+        "id" : "30",
+        "order" : "10",
+        "response" : true,
+        "vertices" : [ {
+          "x" : 225,
+          "y" : 0
+        } ]
+      }, {
+        "description" : "11. Display selection summary",
+        "id" : "19",
+        "order" : "11",
+        "response" : true,
+        "vertices" : [ {
+          "x" : 346,
+          "y" : 242
+        } ]
+      } ],
+      "title" : "Interactive Cube Selection Workflow"
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "description" : "High-level view showing the LIDAR processing system and its interactions with users and external systems",
+      "dimensions" : {
+        "height" : 2600,
+        "width" : 2350
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 224,
+        "y" : 152
+      }, {
+        "id" : "2",
+        "x" : 1699,
+        "y" : 252
+      }, {
+        "id" : "3",
+        "x" : 949,
+        "y" : 1152
+      }, {
+        "id" : "58",
+        "x" : 199,
+        "y" : 852
+      }, {
+        "id" : "59",
+        "x" : 199,
+        "y" : 1452
+      }, {
+        "id" : "60",
+        "x" : 199,
+        "y" : 2052
+      }, {
+        "id" : "61",
+        "x" : 1699,
+        "y" : 852
+      }, {
+        "id" : "62",
+        "x" : 1699,
+        "y" : 1452
+      }, {
+        "id" : "63",
+        "x" : 1699,
+        "y" : 2052
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "SystemContext",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "18"
+      }, {
+        "id" : "38"
+      }, {
+        "id" : "64"
+      }, {
+        "id" : "65"
+      }, {
+        "id" : "66"
+      }, {
+        "id" : "67"
+      }, {
+        "id" : "68"
+      }, {
+        "id" : "69"
+      } ],
+      "softwareSystemId" : "3",
+      "title" : "LIDAR Point Cloud Processing System - System Context"
+    } ]
+  }
+}
