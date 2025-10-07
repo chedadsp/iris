@@ -1,0 +1,78 @@
+[project]
+name = "iris"
+version = "0.1.0"
+description = "Integrated Roadside Intelligence System (IRIS)"
+authors = [
+]
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+keywords = ["lidar", "point-cloud", "visualization", "e57", "vehicle-analysis"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+]
+
+# Core dependencies - using Poetry format for better version management
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+# Data processing and scientific computing
+numpy = "^1.24.0"
+pandas = "^2.3.2"
+scipy = "^1.11.0"
+scikit-learn = "^1.7.1"
+# Visualization and 3D graphics
+pyvista = "^0.42.0"
+matplotlib = "^3.7.0"
+seaborn = "^0.12.0"
+# Point cloud file format support
+laspy = "^2.4.0"
+# Optional ROS bag support
+bagpy = {version = "^0.5.0", optional = true}
+# Deep learning dependencies for PointTransformerV3
+torch = {version = "^2.1.0", optional = true}
+torchvision = {version = "^0.16.0", optional = true}
+einops = {version = "^0.7.0", optional = true}
+timm = {version = "^0.9.0", optional = true}
+tensorboard = {version = "^2.14.0", optional = true}
+# MMDetection3D and related dependencies (newer versions for Python 3.13 compatibility)
+mmcv = {version = "^2.0.0", optional = true}
+mmdet = {version = "^3.0.0", optional = true}
+mmdet3d = {version = "^1.4.0", optional = true}
+# Remove spconv-cu118 as it's not compatible with Apple Silicon
+open3d = {version = "^0.18.0", optional = true}
+numba = {version = "^0.59.0", optional = true}
+yapf = {version = "^0.40.0", optional = true}
+# Note: flash-attn not compatible with Apple Silicon, removed for macOS compatibility
+# GUI framework (only tkinter is actually used)
+# Note: kivy and kivymd removed as they are unused in the codebase
+# tkinter is included with Python, no separate dependency needed
+pye57 = "^0.4.18"
+vtk = "9.2.6"
+ultralytics = "^8.3.203"
+opencv-python = "<4.10"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+black = "^23.7.0"
+flake8 = "^6.0.0"
+mypy = "^1.5.0"
+pre-commit = "^3.4.0"
+
+[tool.poetry.group.optional.dependencies]
+# Optional dependencies for extended functionality
+psutil = "^5.9.0"  # For memory monitoring in tests
+
+[tool.poetry.extras]
+ros = ["bagpy"]  # Install with: poetry install -E ros
+ptv3 = ["torch", "torchvision", "einops", "timm", "tensorboard"]  # Install with: poetry install -E ptv3
+mmdet3d = ["open3d", "mmcv", "mmdet", "mmdet3d", "numba", "yapf"]  # Install with: poetry install -E mmdet3d
+all = ["bagpy", "torch", "torchvision", "einops", "timm", "tensorboard", "open3d", "mmcv", "mmdet", "mmdet3d", "numba", "yapf"]  # Install all optional dependencies
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
