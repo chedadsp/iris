@@ -546,9 +546,9 @@ If you use IRIS in your research, please cite:
 ```bibtex
 @software{iris2025,
   title = {IRIS: Integrated Roadside Intelligence System},
-  author = {Dimitrije Stojanovic},
+  author = {Nenad Cetic, Dimitrije Stojanovic, Sladjana Simic, Teodora Mijovic},
   year = {2025},
-  url = {https://github.com/yourusername/iris}
+  url = {https://github.com/chedasdp/iris}
 }
 ```
 
