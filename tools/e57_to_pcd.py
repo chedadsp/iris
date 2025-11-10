@@ -1,7 +1,7 @@
 import numpy as np
 from pathlib import Path
 import pye57
-import open3d as o3d
+import struct
 
 def read_e57_file(e57_path):
     """Read E57 file and extract point cloud data"""
@@ -26,19 +26,46 @@ def read_e57_file(e57_path):
     
     return points
 
-def save_as_pcd(points, output_path, binary=False):
-    """Save points as PCD file using Open3D"""
-    pcd = o3d.geometry.PointCloud()
-    pcd.points = o3d.utility.Vector3dVector(points[:, :3])
+def save_as_pcd_xtreme1(points, output_path):
+    """Save points as BINARY PCD file with RGB uint32 format for Xtreme1"""
+    n_points = len(points)
     
-    if points.shape[1] >= 4:
-        intensity_norm = (points[:, 3] - points[:, 3].min()) / (points[:, 3].max() - points[:, 3].min() + 1e-10)
-        colors = np.column_stack([intensity_norm, intensity_norm, intensity_norm])
-        pcd.colors = o3d.utility.Vector3dVector(colors)
+    # Normalize intensity to 0-255 and create grayscale RGB
+    intensity = points[:, 3]
+    intensity_norm = ((intensity - intensity.min()) / (intensity.max() - intensity.min() + 1e-10) * 255).astype(np.uint8)
     
-    o3d.io.write_point_cloud(str(output_path), pcd, write_ascii=not binary)
+    # Pack RGB into uint32: (R << 16) | (G << 8) | B
+    r = intensity_norm.astype(np.uint32)
+    g = intensity_norm.astype(np.uint32)
+    b = intensity_norm.astype(np.uint32)
+    rgb_packed = (r << 16) | (g << 8) | b
+    
+    # Write PCD file in BINARY format
+    with open(output_path, 'wb') as f:
+        # Header (ASCII)
+        header = (
+            "# .PCD v0.7 - Point Cloud Data file format\n"
+            "VERSION 0.7\n"
+            "FIELDS x y z rgb\n"
+            "SIZE 4 4 4 4\n"
+            "TYPE F F F U\n"
+            "COUNT 1 1 1 1\n"
+            f"WIDTH {n_points}\n"
+            "HEIGHT 1\n"
+            "VIEWPOINT 0 0 0 1 0 0 0\n"
+            f"POINTS {n_points}\n"
+            "DATA binary\n"
+        )
+        f.write(header.encode('ascii'))
+        
+        # Data (BINARY)
+        for i in range(n_points):
+            x, y, z = points[i, :3]
+            rgb = rgb_packed[i]
+            # Pack as: float32, float32, float32, uint32
+            f.write(struct.pack('fffI', x, y, z, rgb))
 
-def convert_e57_to_pcd(input_dir, output_dir, binary=False):
+def convert_e57_to_pcd(input_dir, output_dir, xtreme1_format=True):
     """Convert all E57 files in input directory to PCD format"""
     input_path = Path(input_dir)
     output_path = Path(output_dir)
@@ -49,6 +76,7 @@ def convert_e57_to_pcd(input_dir, output_dir, binary=False):
     print(f"E57 to PCD Converter")
     print(f"Input:  {input_path}")
     print(f"Output: {output_path}")
+    print(f"Format: {'Xtreme1 (RGB uint32 BINARY)' if xtreme1_format else 'Standard'}")
     print(f"{'='*70}\n")
     
     e57_files = sorted(input_path.glob("*.e57"))
@@ -73,7 +101,7 @@ def convert_e57_to_pcd(input_dir, output_dir, binary=False):
             output_pcd = output_path / output_filename
             
             print(f"    Saving to {output_filename}...")
-            save_as_pcd(points, output_pcd, binary=binary)
+            save_as_pcd_xtreme1(points, output_pcd)
             
             file_size = output_pcd.stat().st_size / (1024 * 1024)
             print(f"    ✓ Saved ({file_size:.2f} MB)\n")
@@ -107,4 +135,4 @@ if __name__ == "__main__":
     INPUT_DIR = "data/ns-scans/14 auto scan"
     OUTPUT_DIR = "data/pcd-scans"
     
-    convert_e57_to_pcd(INPUT_DIR, OUTPUT_DIR, binary=False)
+    convert_e57_to_pcd(INPUT_DIR, OUTPUT_DIR, xtreme1_format=True)

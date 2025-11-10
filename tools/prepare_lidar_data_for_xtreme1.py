@@ -8,7 +8,7 @@ from e57_to_pcd import convert_e57_to_pcd
 def create_xtreme1_structure(pcd_files_info, output_path):
     """Create Xtreme1 folder structure from PCD files"""
     output_path = Path(output_path)
-    pcd_dir = output_path / "point_cloud"
+    pcd_dir = output_path / "lidar_point_cloud_0"
     pcd_dir.mkdir(parents=True, exist_ok=True)
     
     metadata = {
@@ -50,7 +50,7 @@ def create_zip_archive(source_dir, zip_path):
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for file_path in source_path.rglob('*'):
             if file_path.is_file():
-                arcname = file_path.relative_to(source_path.parent)
+                arcname = file_path.relative_to(source_path)
                 zipf.write(file_path, arcname)
     
     file_size = zip_path.stat().st_size / (1024 * 1024)
@@ -64,11 +64,10 @@ def prepare_xtreme1_dataset(e57_input_dir, output_base_dir):
     
     # Step 1: Convert E57 to PCD
     temp_pcd_dir = Path(output_base_dir) / "temp_pcd_conversion"
-    pcd_results = convert_e57_to_pcd(e57_input_dir, temp_pcd_dir, binary=False)
+    pcd_results = convert_e57_to_pcd(e57_input_dir, temp_pcd_dir, xtreme1_format=True)
     
     if not any(r["success"] for r in pcd_results):
         print("❌ No files converted. Aborting.")
-        # Cleanup temp folder even on failure
         if temp_pcd_dir.exists():
             shutil.rmtree(temp_pcd_dir)
         return
@@ -84,7 +83,7 @@ def prepare_xtreme1_dataset(e57_input_dir, output_base_dir):
     zip_path = Path(output_base_dir) / f"{dataset_name}.zip"
     create_zip_archive(xtreme1_dir, zip_path)
     
-    # Step 4: Cleanup temp and dataset folder
+    # Step 4: Cleanup
     print(f"\nCleaning up...")
     if temp_pcd_dir.exists():
         shutil.rmtree(temp_pcd_dir)
