@@ -54,7 +54,9 @@ pye57 = "^0.4.18"
 vtk = "9.2.6"
 ultralytics = "^8.3.203"
 opencv-python = "<4.10"
-label-studio = "^1.11.0"
+# TODO: Label Studio conflict - requires werkzeug==2.0.2 which conflicts with open3d's werkzeug>=2.2.3
+# Need to resolve this conflict or make label-studio optional
+# label-studio = "^1.11.0"
 # label-studio-ml = "^1.0.9"
 torchmetrics = "^1.3.0"
 opencv-python-headless = "^4.9.0"
@@ -78,7 +80,11 @@ mmdet3d = ["open3d", "mmcv", "mmdet", "mmdet3d", "numba", "yapf"]  # Install wit
 all = ["bagpy", "torch", "torchvision", "einops", "timm", "tensorboard", "open3d", "mmcv", "mmdet", "mmdet3d", "numba", "yapf"]  # Install all optional dependencies
 
 [tool.poetry.scripts]
-start-label-studio = "tools.start_label_studio:main"
+# TODO: Re-enable when label-studio conflict is resolved
+# start-label-studio = "tools.start_label_studio:main"
+process-e57-panoramas = "e57_panorama_vehicle_detection.process_e57_panoramas:run_complete_pipeline"
+extract-panorama = "e57_panorama_vehicle_detection.extract_panorama:extract_panorama_from_e57"
+detect-vehicles = "e57_panorama_vehicle_detection.detect_vehicles:detect_vehicles_on_panorama"
 
 [build-system]
 requires = ["poetry-core"]
