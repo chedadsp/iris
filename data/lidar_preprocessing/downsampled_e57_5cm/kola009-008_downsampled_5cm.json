@@ -1,0 +1,12 @@
+{
+  "source_file": "c:\\Users\\Lenovo\\Downloads\\Lidar_Croped_Promenada_Master-20251203T175444Z-3-006\\Lidar_Croped_Promenada_Master\\kola009-008.e57",
+  "output_file": "C:\\MASTER_RAD\\iris\\data\\lidar_preprocessing\\downsampled_e57_5cm\\kola009-008_downsampled_5cm.pcd",
+  "output_format": "pcd",
+  "voxel_size_m": 0.05,
+  "voxel_label": "5cm",
+  "sor_used": false,
+  "sor_k": null,
+  "sor_std": null,
+  "cc_returncode": 0,
+  "timestamp": "2025-12-09T16:47:40.612473Z"
+}
