@@ -1,11 +1,9 @@
-[project]
+[tool.poetry]
 name = "iris"
 version = "0.1.0"
 description = "Integrated Roadside Intelligence System (IRIS)"
-authors = [
-]
+authors = ["IRIS"]
 readme = "README.md"
-requires-python = ">=3.11,<3.12"
 keywords = ["lidar", "point-cloud", "visualization", "e57", "vehicle-analysis"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -18,7 +16,7 @@ classifiers = [
 
 # Core dependencies - using Poetry format for better version management
 [tool.poetry.dependencies]
-python = ">=3.11,<3.12"
+python = ">=3.10,<3.12"
 # Data processing and scientific computing
 numpy = "^1.24.0"
 pandas = "^2.3.2"

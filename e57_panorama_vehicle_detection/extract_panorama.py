@@ -45,47 +45,73 @@ def extract_panorama_from_e57():
         for j in range(len(images2d)):
             image = images2d[j]
             
+            # DEBUG: List all available keys in image
+            print(f"  Image #{j} available keys:")
             try:
-                # Try different representations
-                for key in ["sphericalRepresentation", "visualReferenceRepresentation", 
-                            "pinholeRepresentation", "cylindricalRepresentation"]:
-                    try:
-                        rep = image[key]
-                        
-                        # Find jpeg/png blob
-                        blob = rep["jpegImage"]
-                        
-                        # Read data directly from BlobNode
-                        blob_size = blob.byteCount()
-                        
-                        # Create buffer and read data
-                        blob_data = bytearray(blob_size)
-                        blob.read(blob_data, 0, blob_size)
-                        
-                        # Save as JPEG with e57 filename + _panorama
-                        output_path = os.path.join(output_dir, f"{e57_basename}_panorama.jpg")
-                        with open(output_path, 'wb') as out:
-                            out.write(blob_data)
-                        
-                        print(f"  ✓ Saved: {os.path.basename(output_path)}")
-                        
-                        # Try to verify with PIL
+                for k in range(image.childCount()):
+                    child = image.get(k)
+                    print(f"    - {child.elementName()}")
+            except Exception as debug_ex:
+                print(f"    Could not list keys: {debug_ex}")
+            
+            # Try different representations
+            success = False
+            for key in ["visualReferenceRepresentation", "sphericalRepresentation", 
+                        "pinholeRepresentation", "cylindricalRepresentation"]:
+                try:
+                    print(f"  Trying {key}...", end='')
+                    rep = image[key]
+                    print(" found!")
+                    
+                    # Find jpeg/png blob (try different names)
+                    blob = None
+                    for blob_name in ["jpegImage", "pngImage", "imageFile", "blobImage"]:
                         try:
-                            from PIL import Image
-                            Image.MAX_IMAGE_PIXELS = None
-                            img = Image.open(output_path)
-                            print(f"    Dimensions: {img.width} x {img.height} | Mode: {img.mode}")
-                            
-                        except Exception as pil_ex:
-                            print(f"    PIL error: {pil_ex}")
-                        
-                        break
-                        
-                    except KeyError:
+                            blob = rep[blob_name]
+                            print(f"    Using {blob_name}")
+                            break
+                        except:
+                            continue
+                    
+                    if blob is None:
+                        print(f"    No image blob found in {key}")
                         continue
-                
-            except Exception as ex:
-                print(f"  Error: {ex}")
+                    
+                    # Read data directly from BlobNode
+                    blob_size = blob.byteCount()
+                    
+                    # Create buffer and read data
+                    blob_data = bytearray(blob_size)
+                    blob.read(blob_data, 0, blob_size)
+                    
+                    # Save as JPEG with e57 filename + _panorama
+                    output_path = os.path.join(output_dir, f"{e57_basename}_panorama.jpg")
+                    with open(output_path, 'wb') as out:
+                        out.write(blob_data)
+                    
+                    print(f"  ✓ Saved: {os.path.basename(output_path)}")
+                    
+                    # Try to verify with PIL
+                    try:
+                        from PIL import Image
+                        Image.MAX_IMAGE_PIXELS = None
+                        img = Image.open(output_path)
+                        print(f"    Dimensions: {img.width} x {img.height} | Mode: {img.mode}")
+                    except Exception as pil_ex:
+                        print(f"    PIL error: {pil_ex}")
+                    
+                    success = True
+                    break
+                    
+                except KeyError:
+                    print(" not found")
+                    continue
+                except Exception as ex:
+                    print(f" error: {ex}")
+                    continue
+            
+            if not success:
+                print(f"  ✗ Could not extract panorama from image #{j}")
 
 if __name__ == "__main__":
     extract_panorama_from_e57()

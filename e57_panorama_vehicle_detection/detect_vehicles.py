@@ -4,10 +4,12 @@ from ultralytics import YOLO
 from PIL import Image
 import cv2
 import numpy as np
+import json
 
 def detect_vehicles_on_panorama():
     """
     Detects vehicles on panorama using YOLOv8.
+    Saves detection results as JSON for point cloud filtering.
     """
     
     # Setup folders
@@ -67,9 +69,14 @@ def detect_vehicles_on_panorama():
         detections = results[0].boxes
         print(f"  Found {len(detections)} vehicle(s)")
         
-        # Prepare image for drawing
+        # Prepare image for drawing and collect detection data
         img_annotated = img.copy()
         vehicles_found = []
+        detection_data = {
+            'panorama': os.path.basename(panorama_path),
+            'dimensions': {'width': width, 'height': height},
+            'vehicles': []
+        }
         
         for i, box in enumerate(detections):
             # Detection data
@@ -78,9 +85,23 @@ def detect_vehicles_on_panorama():
             class_id = int(box.cls[0])
             vehicle_type = vehicle_classes.get(class_id, 'unknown')
             
+            # Save to list for statistics
             vehicles_found.append({
                 'type': vehicle_type,
                 'confidence': confidence
+            })
+            
+            # Save to JSON data with integer coordinates
+            detection_data['vehicles'].append({
+                'id': i + 1,
+                'type': vehicle_type,
+                'confidence': float(confidence),
+                'bbox': {
+                    'x1': int(x1),
+                    'y1': int(y1),
+                    'x2': int(x2),
+                    'y2': int(y2)
+                }
             })
             
             # Draw bounding box
@@ -106,10 +127,16 @@ def detect_vehicles_on_panorama():
         # Generate output filename
         basename = os.path.splitext(os.path.basename(panorama_path))[0]
         output_path = os.path.join(output_dir, f"{basename}_detected.jpg")
+        json_path = os.path.join(output_dir, f"{basename}_detections.json")
         
-        # Save full resolution
+        # Save annotated image
         cv2.imwrite(output_path, img_annotated, [cv2.IMWRITE_JPEG_QUALITY, 95])
         print(f"  ✓ Saved: {os.path.basename(output_path)}")
+        
+        # Save JSON with detection data
+        with open(json_path, 'w') as f:
+            json.dump(detection_data, f, indent=2)
+        print(f"  ✓ Saved: {os.path.basename(json_path)}")
         
         # Statistics
         if vehicles_found:

@@ -1,5 +1,9 @@
 import os
 import sys
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(__file__))
+
 from extract_panorama import extract_panorama_from_e57
 from detect_vehicles import detect_vehicles_on_panorama
 
@@ -21,6 +25,8 @@ def run_complete_pipeline():
         extract_panorama_from_e57()
     except Exception as e:
         print(f"Error during panorama extraction: {e}")
+        import traceback
+        traceback.print_exc()
         return
     
     # Step 2: Detect vehicles
@@ -31,6 +37,8 @@ def run_complete_pipeline():
         detect_vehicles_on_panorama()
     except Exception as e:
         print(f"Error during vehicle detection: {e}")
+        import traceback
+        traceback.print_exc()
         return
     
     # Summary
