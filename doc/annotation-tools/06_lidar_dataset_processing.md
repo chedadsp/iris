@@ -1,6 +1,6 @@
 # Lidar datasets - large lidar files processing - INITIAL OVERVIEW
 
-## 🚀 Quick Start (TL;DR)
+## Quick Start  
 
 If you just need to **downsample a large E57 LiDAR file**, use the preprocessing script:
 
