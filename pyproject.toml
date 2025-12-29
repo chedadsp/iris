@@ -28,8 +28,8 @@ matplotlib = "^3.7.0"
 seaborn = "^0.12.0"
 # Point cloud file format support
 laspy = "^2.4.0"
-# Optional ROS bag support
-bagpy = {version = "^0.5.0", optional = true}
+# Point cloud processing (3D downsampling)
+open3d = "^0.19.0"
 # Deep learning dependencies for PointTransformerV3
 torch = {version = "^2.1.0", optional = true}
 torchvision = {version = "^0.16.0", optional = true}
@@ -41,7 +41,6 @@ mmcv = {version = "^2.0.0", optional = true}
 mmdet = {version = "^3.0.0", optional = true}
 mmdet3d = {version = "^1.4.0", optional = true}
 # Remove spconv-cu118 as it's not compatible with Apple Silicon
-open3d = {version = "^0.18.0", optional = true}
 numba = {version = "^0.59.0", optional = true}
 yapf = {version = "^0.40.0", optional = true}
 # Note: flash-attn not compatible with Apple Silicon, removed for macOS compatibility
@@ -83,6 +82,12 @@ all = ["bagpy", "torch", "torchvision", "einops", "timm", "tensorboard", "open3d
 process-e57-panoramas = "e57_panorama_vehicle_detection.process_e57_panoramas:run_complete_pipeline"
 extract-panorama = "e57_panorama_vehicle_detection.extract_panorama:extract_panorama_from_e57"
 detect-vehicles = "e57_panorama_vehicle_detection.detect_vehicles:detect_vehicles_on_panorama"
+# New point cloud processing pipeline scripts
+process-point-cloud = "point_cloud_processing.e57_process:main"
+downsample-e57 = "point_cloud_processing.downsampling.downsample:main"
+extract-panorama-pc = "point_cloud_processing.panorama.extract_panorama:extract_panorama_from_e57"
+detect-vehicles-pc = "point_cloud_processing.panorama.detect_vehicles:detect_vehicles_on_panorama"
+filter-vehicles-pc = "point_cloud_processing.filtering.filter_vehicles:main"
 
 [build-system]
 requires = ["poetry-core"]

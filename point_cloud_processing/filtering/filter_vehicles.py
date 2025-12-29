@@ -17,6 +17,7 @@ import json
 import pye57
 import numpy as np
 from pathlib import Path
+import argparse
 
 
 def save_as_pcd(output_path, x, y, z, r=None, g=None, b=None):
@@ -119,7 +120,7 @@ def filter_points_by_vehicle_bboxes(e57_path, detections_json_path, output_path)
         e57 = pye57.E57(str(e57_path))
         scan_data = e57.read_scan(0, ignore_missing_fields=True)
         
-        # Extract coordinates
+        # Extract coordinates and spherical data
         x = scan_data['cartesianX']
         y = scan_data['cartesianY']
         z = scan_data['cartesianZ']
@@ -233,18 +234,19 @@ def main():
     
     # Setup paths
     script_dir = Path(__file__).parent.resolve()
-    iris_dir = script_dir.parent
+    processing_dir = script_dir.parent
+    iris_dir = processing_dir.parent
     
-    input_dir = iris_dir / "e57_panorama_vehicle_detection" / "data" / "input"
-    detection_dir = iris_dir / "e57_panorama_vehicle_detection" / "data" / "detected"
-    output_dir = script_dir / "output"
+    input_dir = processing_dir / "data" / "downsampled"
+    detection_dir = processing_dir / "data" / "detected"
+    output_dir = processing_dir / "data" / "filtered"
     
     # Create output directory
-    output_dir.mkdir(exist_ok=True)
+    output_dir.mkdir(exist_ok=True, parents=True)
     
     # Find files
     e57_files = sorted(input_dir.glob("*.e57"))
-    detection_files = sorted(detection_dir.glob("*_detections.json"))
+    detection_files = sorted(detection_dir.glob("*_panorama_detections.json"))
     
     if not e57_files:
         print(f"✗ No E57 files found in {input_dir}")
@@ -261,8 +263,9 @@ def main():
         # Find matching detection file
         detection_path = None
         for det_file in detection_files:
-            # Match by base name (e.g., scan001.e57 -> scan001_panorama_detections.json)
-            if e57_path.stem in det_file.stem:
+            # Match by base name (e.g., scan001_downsampled_5cm.e57 -> scan001_panorama_detections.json)
+            base_name = e57_path.name.split('_downsampled')[0] if '_downsampled' in e57_path.name else e57_path.stem
+            if det_file.name.startswith(base_name + "_panorama"):
                 detection_path = det_file
                 break
         
