@@ -18,7 +18,9 @@ import pye57
 import numpy as np
 from pathlib import Path
 import argparse
+from ..downsampling.downsample import compute_spherical_from_xyz
 
+AZ_OFFSET = np.pi  # probaj π, π/2, -π/2
 
 def save_as_pcd(output_path, x, y, z, r=None, g=None, b=None):
     """Save point cloud as PCD file for better compatibility."""
@@ -72,22 +74,22 @@ def bbox_to_spherical(bbox, image_width, image_height):
     """
     x1, y1, x2, y2 = bbox['x1'], bbox['y1'], bbox['x2'], bbox['y2']
     
-    # OLD VERSION (commented out - panorama not mirrored):
-    # az_min = (x1 / image_width) * 2 * np.pi
-    # az_max = (x2 / image_width) * 2 * np.pi
-    
-    # NEW VERSION - INVERTED AZIMUTH: panorama is mirrored/reversed
-    # Instead of (x / width) * 2π, use (1 - x / width) * 2π
-    az_min = (1 - x2 / image_width) * 2 * np.pi  # Flip: x2 becomes min
-    az_max = (1 - x1 / image_width) * 2 * np.pi  # Flip: x1 becomes max
-    
-    # INVERTED ELEVATION: top of image (y=0) = +90°, bottom (y=height) = -90°
-    # y2 (bottom of bbox) should map to LOWER elevation
-    el_min = np.pi/2 - (y2 / image_height) * np.pi  # bottom bbox -> lower angle
-    el_max = np.pi/2 - (y1 / image_height) * np.pi  # top bbox -> higher angle
+    # Azimuth: panorama is mirrored
+    az_min = (1 - x2 / image_width) * 2 * np.pi
+    az_max = (1 - x1 / image_width) * 2 * np.pi
+
+    # Elevation: top = +90°, bottom = -90°
+    el_min = np.pi/2 - (y2 / image_height) * np.pi
+    el_max = np.pi/2 - (y1 / image_height) * np.pi
     
     return az_min, az_max, el_min, el_max
 
+
+def az_in_range(az, az_min, az_max):
+    if az_min <= az_max:
+        return (az >= az_min) & (az <= az_max)
+    else:
+        return (az >= az_min) | (az <= az_max)
 
 def filter_points_by_vehicle_bboxes(e57_path, detections_json_path, output_path):
     """
@@ -124,9 +126,25 @@ def filter_points_by_vehicle_bboxes(e57_path, detections_json_path, output_path)
         x = scan_data['cartesianX']
         y = scan_data['cartesianY']
         z = scan_data['cartesianZ']
-        azimuth = scan_data['sphericalAzimuth']
-        elevation = scan_data['sphericalElevation']
-        range_data = scan_data['sphericalRange']
+        if (
+            'sphericalAzimuth' in scan_data and
+            'sphericalElevation' in scan_data and
+            'sphericalRange' in scan_data
+        ):
+            azimuth = scan_data['sphericalAzimuth']
+            elevation = scan_data['sphericalElevation']
+            range_data = scan_data['sphericalRange']
+        else:
+            azimuth, elevation, range_data = compute_spherical_from_xyz(
+                scan_data['cartesianX'],
+                scan_data['cartesianY'],
+                scan_data['cartesianZ']
+            )
+
+        print("POINT CLOUD SPHERICAL RANGES:")
+        print("  azimuth   min/max:", azimuth.min(), azimuth.max())
+        print("  elevation min/max:", elevation.min(), elevation.max())
+        print("  range     min/max:", range_data.min(), range_data.max())
         
         total_points = len(x)
         print(f"Points: {total_points:,}")
@@ -155,17 +173,63 @@ def filter_points_by_vehicle_bboxes(e57_path, detections_json_path, output_path)
             vehicle['bbox'], image_width, image_height
         )
         
-        # Filter points in this bbox
-        bbox_mask = (
-            (azimuth >= az_min) & (azimuth <= az_max) &
-            (elevation >= el_min) & (elevation <= el_max)
+        # ---- auto azimuth alignment (panorama ↔ LiDAR) ----
+        az_center = 0.5 * (az_min + az_max)
+        pc_az_mean = np.mean(azimuth)
+        az_offset = pc_az_mean - az_center
+
+        az_min = (az_min + az_offset) % (2 * np.pi)
+        az_max = (az_max + az_offset) % (2 * np.pi)
+
+        # ---- dynamic AZ padding (bbox width–based) ----
+        az_width = (az_max - az_min) % (2 * np.pi)
+        AZ_PAD = np.clip(
+            0.5 * az_width,
+            np.deg2rad(1.0),
+            np.deg2rad(4.0)
         )
-        
-        points_in_bbox = np.sum(bbox_mask)
-        print(f"  Vehicle {vehicle['id']}: {points_in_bbox:,} points ({100*points_in_bbox/total_points:.2f}%)")
-        
-        # Add to combined mask
+
+        az_min = (az_min - AZ_PAD) % (2 * np.pi)
+        az_max = (az_max + AZ_PAD) % (2 * np.pi)
+
+        # ---- estimate distance of this vehicle ----
+        rough_az_mask = az_in_range(azimuth, az_min, az_max)
+        if np.any(rough_az_mask):
+            mean_range = np.mean(range_data[rough_az_mask])
+        else:
+            mean_range = np.mean(range_data)
+
+        # ---- dynamic EL padding based on distance ----
+        EL_PAD = np.deg2rad(
+            np.clip(
+                0.15 * mean_range,   # 🔑 ključni faktor
+                3.0,                 # min 3°
+                15.0                 # max 15°
+            )
+        )
+
+        # ---- final bbox mask ----
+        bbox_mask = (
+            az_in_range(azimuth, az_min, az_max) &
+            (elevation >= el_min - EL_PAD) &
+            (elevation <= el_max + np.deg2rad(2.0))
+        )
+
+        points_in_bbox = np.count_nonzero(bbox_mask)
+
+        print(f"\nVEHICLE #{vehicle['id']} ({vehicle['type']}):")
+        print(f"  az range: {az_min:.3f} – {az_max:.3f}")
+        print(f"  el range: {el_min:.3f} – {el_max:.3f}")
+        print(f"  mean range: {mean_range:.1f} m")
+        print(f"  AZ pad: {np.rad2deg(AZ_PAD):.1f}°")
+        print(f"  EL pad: {np.rad2deg(EL_PAD):.1f}°")
+        print(f"  points: {points_in_bbox:,}")
+
+        if points_in_bbox == 0:
+            print("  ⚠️ NO POINTS FOUND")
+
         vehicle_mask |= bbox_mask
+
     
     total_vehicle_points = np.sum(vehicle_mask)
     print(f"\nTotal: {total_vehicle_points:,} / {total_points:,} points ({100*total_vehicle_points/total_points:.2f}%)")

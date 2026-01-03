@@ -19,7 +19,7 @@ Before filtering, you must complete these steps:
 This generates:
 - Panorama images: `point_cloud_processing/data/panoramas/`
 - Detection JSON: `point_cloud_processing/data/detected/`
-- Downsampled E57: `data/input/downsampled/`
+- Downsampled E57: `point_cloud_processing/data/downsampled/`
 
 ## Usage
 
@@ -30,7 +30,7 @@ poetry run filter-vehicles-pc
 ```
 
 Automatically:
-- Reads downsampled E57 from: `data/input/downsampled/`
+- Reads downsampled E57 from: `point_cloud_processing/data/downsampled/`
 - Reads detections from: `point_cloud_processing/data/detected/`
 - Writes output to: `point_cloud_processing/data/filtered/`
 
@@ -99,3 +99,12 @@ Reads and preserves:
 - Vehicle bounding boxes with overlaps are automatically merged
 - Downsampled files must have matching detection JSON
 - Both E57 and PCD formats saved automatically
+
+## Filtering logic
+
+- **Automatic azimuth alignment:** The script computes an offset between the bbox center and the LiDAR azimuth mean and shifts azimuth ranges so panorama detections align with the LiDAR scan.
+- **Dynamic AZ padding:** AZ padding is derived from bbox width (0.5 * bbox width) and clamped to ~1°–4° to include marginal rays.
+- **Distance-aware EL padding:** The mean range of points within a rough azimuth mask is used to compute elevation padding (0.15 * mean_range), clamped to 3°–15°.
+- **Robust azimuth wrap-around handling:** Azimuths are processed modulo 2π so masks work correctly across the 0 / 2π boundary.
+- **Fallback for missing spherical fields:** If `sphericalAzimuth`/`sphericalElevation`/`sphericalRange` are absent in the E57, they are computed from XYZ coordinates.
+- **Color preserved and PCD output:** Color channels (if present) are retained in the filtered E57 and an additional PCD file is produced for quick visualization.

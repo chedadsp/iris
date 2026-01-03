@@ -2,7 +2,7 @@
 """
 Downsample E57 scans using Open3D voxel grid.
 
-Reads from data/input folder and saves to data/input/downsampled/.
+Reads from data/input folder and saves to data/downsampled/.
 
 Usage:
   poetry run downsample-e57
@@ -104,6 +104,12 @@ def main():
             import traceback
             traceback.print_exc()
 
+
+def compute_spherical_from_xyz(x, y, z):
+    r = np.sqrt(x**2 + y**2 + z**2)
+    az = np.mod(np.arctan2(y, x), 2 * np.pi)
+    el = -(np.arcsin(z / r))
+    return az, el, r
 
 if __name__ == "__main__":
     main()
